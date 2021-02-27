@@ -63,5 +63,20 @@ ex_public_command() {
     _private_command
 }
 
+greeting_n_times() {
+    _doc 'your documentation' && return 1
+
+    name=$1
+    n=$2
+
+    test -n "$name" || error "Missing 1st parameter for name of the person"
+    test -n "$n" || error "Missing 2nd parameter for the number of time to say hello"
+
+    count=10
+    for i in $(seq $n); do
+        echo "Hello $name"
+    done
+}
+
 # shellcheck disable=SC1091
 source template.sh

@@ -144,3 +144,102 @@ ex_public_command() {
     _private_command
 }
 ```
+
+# The help command
+
+When you run `./your_shell_script.sh help` or just `./your_shell_script.sh` with no parameter, the `help` command is invoked which execute every public commands in your script in `X_DOC` mode. Here is the output when you run `./example.sh help` using the `example.sh` in this repository
+
+```
+alert
+	To print a normal message with a cute cow.
+
+all_commands
+	Show all available commands
+
+error
+	To print an error message with a cute cow, and then exit the script with non-zero exit code
+
+ex_happy
+	Test happy case
+
+ex_oops
+	What will happens when there is an error that your forgot to handle with && and ||
+
+ex_public_command
+	All function that starts with _ will now be listed and cannot be invoked externally.
+ But you can still invoke the function inside the script itself.
+
+ex_success_or_failure
+	This example show you the error handling behavior.
+ You can use || and && to handle in case your command fails.
+ If a command in a pipe fails, all the pipe also fails
+
+ex_unhappy
+	Test the "error" command
+
+help
+	Show all available commands and their documentation
+
+```
+
+# Passing parameters
+
+You can pass arbitrary parameters to your command from the script invocation. For example
+
+```bash
+#!/bin/bash
+
+greeting_n_times() {
+    _doc 'your documentation' && return 1
+
+    name=$1
+    n=$2
+
+    test -n "$name" || error "Missing 1st parameter for name of the person"
+    test -n "$n" || error "Missing 2nd parameter for the number of time to say hello"
+
+    count=10
+    for i in $(seq $n); do
+        echo "Hello $name"
+    done
+}
+
+source /path/to/template.sh
+```
+
+When you execute the command without parameters:
+
+```shell
+$ ./example.sh greeting_n_times
+
+ ______________________
+  < Missing 1st parameter for name of the person >
+ ----------------------
+        \   ^__^
+         \  (xx)\_______
+            (__)\       )\/
+             U  ||----w |
+                ||     ||
+
+$ ./example.sh greeting_n_times John
+
+ ______________________
+  < Missing 2nd parameter for the number of time to say hello >
+ ----------------------
+        \   ^__^
+         \  (xx)\_______
+            (__)\       )\/
+             U  ||----w |
+                ||     ||
+
+
+```
+
+And when you enter the currect parameters:
+
+```
+$ ./example.sh greeting_n_times John 3
+Hello John
+Hello John
+Hello John
+```
