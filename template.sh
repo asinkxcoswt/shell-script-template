@@ -2,6 +2,7 @@
 
 ############################
 # Author: Asinkxcoswt
+# Download From: https://github.com/asinkxcoswt/shell-script-template
 ############################
 
 _doc() {
