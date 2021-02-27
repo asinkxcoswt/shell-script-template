@@ -8,7 +8,7 @@ Usually when I work with source code in a software project, no matter it is Java
 
 It is very useful to record EVERY shell commands that involve the source code. For example, when you initialize a NextJs project, you would write `yarn create next-app your-app`. It is not a waste of time to record this in a utility script so that you and your friend know EVERYTHING commands that involve the project.
 
-```
+```bash
 #!/bin/bash
 
 init_project() {
@@ -18,7 +18,7 @@ init_project() {
 
 Suppose you have a command to be used in CI/CD configuration tools such as Gitlab CI, you write all the core command in this shell script and have Gitlab CI invoke your script.
 
-```
+```bash
 # In your utility.sh
 build_and_deploy_to_k8s() {
     yarn build
@@ -26,7 +26,9 @@ build_and_deploy_to_k8s() {
     publish_docker_image
     deploy_to_k8s
 }
+```
 
+```yml
 # In your .gitlab-ci.yml
 deploy:
     stage: deploy
@@ -51,7 +53,7 @@ To do this, your `utility.sh` will need some common features:
 
 2. Create `your_shell_script.sh` and include the `template.sh` in it as follows
 
-```
+```bash
 #!/bin/bash
 
 source /path/to/template.sh
@@ -59,7 +61,7 @@ source /path/to/template.sh
 
 3. Add your command to `your_shell_script.sh` with the documentation, e.g.
 
-```
+```bash
 #!/bin/bash
 
 your_command() {
@@ -82,7 +84,7 @@ please notice that `&& return 1` at the end of `_doc` command. This is important
 
 # Example
 
-```
+```bash
 ex_happy() {
     _doc '
         Test happy case
