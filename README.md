@@ -4,7 +4,7 @@ This is a template for initialize a utility shell script (bash), it works for me
 
 # Motivation: Use shell script to record everything.
 
-Usually when I work with source code in a software project, no matter it is Java, Python or any other languages, there are some infrastructure set up tasks that need the use of shell scriptiing.
+Usually when I work with source code in a software project, no matter it is Java, Python, or any other languages, there are some infrastructure set up tasks that need the use of shell scripting.
 
 It is very useful to record EVERY shell commands that involve the source code. For example, when you initialize a NextJs project, you would write `yarn create next-app your-app`. It is not a waste of time to record this in a utility script so that you and your friend know EVERYTHING commands that involve the project.
 
@@ -36,16 +36,16 @@ deploy:
         - ./utility.sh build_and_deploy_to_k8s
 ```
 
-With this practice, you verbosefully declare almost everything in the source code. The future you and your friends will share equal knowledge of what happen in the whole life cycle of the project and can investigate and reproduce any issue.
+With this practice, you verbosely declare almost everything in the source code. The future you and your friends will share equal knowledge of what happens in the whole life cycle of the project and can investigate and reproduce any issue.
 
 To do this, your `utility.sh` will need some common features:
 1. You can add a new group of commands in a bash function and invoke the function easily, like `./utility.sh your_new_function`.
-2. You can add documentation to your commands so that they can be shown when the user execute the script with `./utility.sh help` 
+2. You can add documentation to your commands so that they can be shown when the user executes the script with `./utility.sh help` 
 3. The `./utility.sh help` command can list all the available commands and their documentation.
 4. You can add private commands that do not show to the user and cannot be invoked externally.
-5. The script can handle when the user enter an invalid, or no command.
-6. The script has easy error handling machanism.
-7. The script is compliance with [shellcheck](https://github.com/koalaman/shellcheck) standard.
+5. The script can handle when the user enters an invalid or no command.
+6. The script has an easy error handling mechanism.
+7. The script is in compliance with [shellcheck](https://github.com/koalaman/shellcheck) standard.
 
 # How to use
 
