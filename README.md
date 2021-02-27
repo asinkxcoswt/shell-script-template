@@ -243,3 +243,11 @@ Hello John
 Hello John
 Hello John
 ```
+
+# Alert command and the X_SILENT mode
+
+The `alert` command is useful when you want your debug message to be notice easily as it print your message with an adorable cow. But you may want to suppress the cow when your want to assign the output of your command to a variable. In this case your case set the variable `X_SILENT` to have any non empty value before executing your command.
+
+```bash
+your_variable=$(X_SILENT=yes ./your_shell_script.sh your_command)
+```
