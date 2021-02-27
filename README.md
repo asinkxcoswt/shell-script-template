@@ -53,30 +53,30 @@ To do this, your `utility.sh` will need some common features:
 
 2. Create `your_shell_script.sh` and include the `template.sh` in it as follows
 
-```bash
-#!/bin/bash
-
-source /path/to/template.sh
-```
+   ```bash
+   #!/bin/bash
+   
+   source /path/to/template.sh
+   ```
 
 3. Add your command to `your_shell_script.sh` with the documentation, e.g.
 
-```bash
-#!/bin/bash
+   ```bash
+   #!/bin/bash
+   
+   your_command() {
+       _doc '
+           What is this command for?\n
+           How and when to invoke it?
+       ' && return 1
+   
+       echo "Do the command logic"
+   }
+   
+   source /path/to/template.sh
+   ```
 
-your_command() {
-    _doc '
-        What is this command for?\n
-        How and when to invoke it?
-    ' && return 1
-
-    echo "Do the command logic"
-}
-
-source /path/to/template.sh
-```
-
-please notice that `&& return 1` at the end of `_doc` command. This is important to prevent `your_command` to be executed when the user run `./your_shell_script.sh help`.
+   please notice the `&& return 1` at the end of `_doc` command. This is important to prevent `your_command` to be executed when the user run `./your_shell_script.sh help`.
 
 4. Execute your command `./your_shell_script.sh your_command`
 5. See `example.sh` to understand the error handling machanism and private command.
