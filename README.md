@@ -49,7 +49,7 @@ To do this, your `utility.sh` will need some common features:
 
 # How to use
 
-1. Download the `template.sh` from this repository. For example `curl -O https://raw.githubusercontent.com/asinkxcoswt/shell-script-template/master/template.sh`
+1. Download the `template.sh` from this repository. For example `curl -O https://raw.githubusercontent.com/asinkxcoswt/shell-script-template/main/template.sh`
 
 2. Create `your_shell_script.sh` and include the `template.sh` in it as follows
 
