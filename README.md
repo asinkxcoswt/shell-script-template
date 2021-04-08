@@ -288,3 +288,11 @@ source ./template.sh
     ./cli.sh encrypt_all
     ```
     The encrypted files will have prefix `cypher.*`. For example, if your secret file is `secret.env`, this command produces the encrypted file `cypher.env` in the same directory as the original file.
+
+5. You can commit all the change now. Please notice that your secret files `secret.*` and the cypher key `key.bin` will never be commited.
+
+6. When someone has cloned your repository, he/she have to ask from you the cypher key `key.bin`. Place the cypher key in the root directory of the project and run following command to decrypt all files starting with `cypher.*`.
+    ```
+    ./cli.sh decrypt_all
+    ```
+    The corresponding secret files will be produces in the same directory as the encrypted files.
