@@ -47,6 +47,57 @@ error() {
   exit 1
 }
 
+encrypt_all() {
+    _doc 'Encrypt all secret files (starting with secret.*)' && return 1
+    find . -type f -name "secret.*" | while read file
+    do
+        encrypt "${file}"
+    done
+}
+
+decrypt_all() {
+    _doc 'Decrypt all cypher files (starting with cypher.*)' && return 1
+    find . -type f -name "cypher.*" | while read file
+    do
+        decrypt "${file}"
+    done 
+}
+
+encrypt() {
+    _doc 'Encrypt the input secret_file' && return 1
+    local secret_file="$1"
+    echo "Begin encrypting file ${secret_file}"
+
+    test -n "${secret_file}" || error "Missing 1st parameter for the secret_file to be encrypted"
+    test -f "${secret_file}" || error "The input secret_file ${secret_file} does not exist"
+    basename "${secret_file}" | grep -E "^secret." || error "The input file should have name starting with 'secret.'"
+    test -f "./key.bin" || error "Missing the cypher key ./key.bin"
+
+    local out_file="$(echo ${secret_file} | sed 's/secret\.\(.*\)$/cypher.\1/')"
+
+    openssl enc -aes-256-cbc -pass file:./key.bin -in "${secret_file}" -out "${out_file}" -salt
+}
+
+decrypt() {
+    _doc 'Decrypt the input cypher_file' && return 1
+    local cypher_file="$1"
+    echo "Begin decrypting file ${cypher_file}"
+
+    test -n "${cypher_file}" || error "Missing 1st parameter for the cypher_file to be decrypted"
+    test -f "${cypher_file}" || error "The input cypher_file ${cypher_file} does not exist"
+    basename "${cypher_file}" | grep -E "^cypher." || error "The input file should have name starting with 'cypher.'"
+    test -f "./key.bin" || error "Missing the cypher key ./key.bin"
+
+    local out_file="$(echo ${cypher_file} | sed 's/cypher\.\(.*\)$/secret.\1/')"
+
+    openssl enc -d -aes-256-cbc -pass file:./key.bin -in "${cypher_file}" -out "${out_file}"
+}
+
+gen_key() {
+    _doc 'Generate the cypher key for encryption/decryption' && return 1
+    openssl rand -hex 64 -out key.bin
+}
+
 all_commands() {
     _doc 'Show all available commands'  && return 1
     declare -F | awk '{print $3}' | grep -vE '^_'

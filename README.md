@@ -251,3 +251,40 @@ The `alert` command is useful when you want your debug message to be notice easi
 ```bash
 your_variable=$(X_SILENT=yes ./your_shell_script.sh your_command)
 ```
+
+# Encrypt secret files
+
+If you are unavoidable to put configuration files containing credentials in the same repo with your source code, let's at least encrypt them. This template has a set of convenient functions to encrypt and decrypt secret files in your repo.
+
+Assuming your utility script is named `cli.sh` and it extends the `template.sh`.
+
+```bash
+# in cli.sh
+
+your_other_function() {...}
+
+source ./template.sh
+```
+
+1. You have to name any file that should be encrypted with prefix `secret.*`, e.g. `secret.env`.
+
+2. Generate your cypher key.
+
+    ```bash
+    ./cli.sh gen_key
+    ```
+
+    This will produce `key.bin` in your current directory.
+
+3. Add following entries in `.gitignore` to ensure that all your secret files and the cypher key will not be commited to Git.
+
+    ```bash
+    **/secret.*
+    key.bin
+    ```
+
+4. This command encrypts all files starting with `secret.*` using the cypher key.
+    ```bash
+    ./cli.sh encrypt_all
+    ```
+    The encrypted files will have prefix `cypher.*`. For example, if your secret file is `secret.env`, this command produces the encrypted file `cypher.env` in the same directory as the original file.
