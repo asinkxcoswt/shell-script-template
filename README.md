@@ -291,7 +291,7 @@ source ./template.sh
 
 5. You can commit all the change now. Please notice that your secret files `secret.*` and the cypher key `key.bin` will never be commited.
 
-6. When someone has cloned your repository, he/she have to ask from you the cypher key `key.bin`. Place the cypher key in the root directory of the project and run following command to decrypt all files starting with `cypher.*`.
+6. When someone has cloned your repository, they have to ask from you the cypher key `key.bin`. Place the cypher key in the root directory of the project and run following command to decrypt all files starting with `cypher.*`.
     ```
     ./cli.sh decrypt_all
     ```
