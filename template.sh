@@ -13,6 +13,23 @@ _doc() {
   echo $* && return 0
 }
 
+mawsay() {
+  _doc 'cat say' && return 1
+  echo ""
+  echo "-----------------------------------"
+  printf "$*\n" | fold -w 35 -s
+  echo "-----------------------------------"
+  echo "
+     \   /\_/\  /\\
+      \ / o o \ \ \\
+       /   Y   \/ /
+      /         \/
+      \ | | | | /
+       '|_|-|_|'   mawsay"  
+  
+  echo ""
+}
+
 alert() {
   _doc 'To print a normal message with a cute cow.' && return 1
   if [ -n "${X_SILENT}" ]; then
