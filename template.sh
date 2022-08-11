@@ -132,7 +132,7 @@ set -eo pipefail
 command="$1"
 test -z "${command}" && { help; exit 1; }
 
-all_commands | grep "${command}" > /dev/null || error "Unknown command: ${command}"
+all_commands | grep -- "${command}" > /dev/null || error "Unknown command: ${command}"
 
 shift 1
 # shellcheck disable=SC2048,SC2086,SC2068
